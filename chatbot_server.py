@@ -14,9 +14,9 @@ from google.genai import types
 
 # Cloud Run pasa las credenciales al servidor de forma segura
 # Usa os.environ.get() para obtenerlas.
-ACCOUNT_SID = os.environ.get("ACCOUNT_SID", "None")
-AUTH_TOKEN = os.environ.get("AUTH_TOKEN", "None")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "None")
+ACCOUNT_SID = os.environ.get("ACCOUNT_SID", None)
+AUTH_TOKEN = os.environ.get("AUTH_TOKEN", None)
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", None)
 
 # ----------------------------------------------------------------------
 # CONFIGURACIÓN DE PERSISTENCIA Y DATOS LOCALES
@@ -144,4 +144,5 @@ def whatsapp_reply():
 if __name__ == "__main__":
     # ¡IMPORTANTE! El puerto 8080 es el estándar para Google Cloud Run.
     print("SERVIDOR DE PSICOBOT INICIADO (Modo Local de Prueba)")
+
     app.run(host='0.0.0.0', port=8080)
