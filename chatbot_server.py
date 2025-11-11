@@ -52,14 +52,15 @@ if GEMINI_API_KEY:
         # CORRECCIÓN CRÍTICA: Se pasa la clave API directamente para evitar errores de entorno.
         # CRITICAL FIX: The API key is passed directly to avoid environment errors.
         client = genai.Client(api_key=GEMINI_API_KEY)
+        print("✅ Cliente de Gemini inicializado correctamente.") # Nuevo log de éxito
     except Exception as e:
         # Esto atrapará el error si la clave es inválida.
         # This will catch the error if the key is invalid.
-        print(f"Error CRÍTICO al inicializar el cliente de Gemini: {e}")
+        print(f"❌ Error CRÍTICO al inicializar el cliente de Gemini: {e}")
 else:
     # Si la clave no se encontró.
     # If the key was not found.
-    print("Error CRÍTICO: La variable GEMINI_API_KEY está vacía o no se cargó.")
+    print("❌ Error CRÍTICO: La variable GEMINI_API_KEY está vacía o no se cargó.")
 
 # ----------------------------------------------------------------------
 # LÓGICA DE GEMINI Y CONTEXTO
@@ -75,8 +76,8 @@ def get_gemini_response(incoming_msg, from_number):
     # Si el cliente falló al iniciar, devuelve un mensaje de error CLARO.
     # If the client failed to start, return a CLEAR error message.
     if client is None:
-        # ESTE ES EL MENSAJE QUE DEBERÍA APARECER EN TUS LOGS SI FALLA LA CLAVE
-        print("FALLO: El cliente de Gemini no se pudo inicializar (revisa GEMINI_API_KEY en Railway).")
+        # ESTE ES EL MENSAJE DE DIAGNÓSTICO EN RAILWAY
+        print("💥 DIAGNÓSTICO: Cliente de Gemini NO inicializado. Fallo de la clave API.")
         return "🤖 Lo siento, la conexión con la IA falló al iniciar. Por favor, avisa a soporte para revisar la clave API."
 
     # 1. Cargar el historial completo
@@ -113,7 +114,8 @@ def get_gemini_response(incoming_msg, from_number):
                 model='gemini-2.5-flash',
                 contents=content_list
             )
-
+            print(f"✅ Respuesta de Gemini exitosa en intento {attempt + 1}.") # Nuevo log de éxito
+            
             reply_text = response.text
             
             # Si la respuesta está vacía (posible filtro de seguridad), aborta.
@@ -137,7 +139,7 @@ def get_gemini_response(incoming_msg, from_number):
         except Exception as e:
             # Si falla, registra el error e intenta de nuevo.
             # If it fails, log the error and try again.
-            print(f"ERROR: Fallo de Gemini en el intento {attempt + 1}. Mensaje: {e}")
+            print(f"❌ ERROR: Fallo de Gemini en el intento {attempt + 1}. Mensaje: {e}")
             
             if attempt < 2:
                 time.sleep(2) # Espera 2 segundos antes de reintentar
