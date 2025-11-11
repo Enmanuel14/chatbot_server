@@ -21,12 +21,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", None)
 # ----------------------------------------------------------------------
 
 # ¡ESTA VARIABLE FALTABA Y ES CRUCIAL PARA DARLE PERSONALIDAD!
-SYSTEM_PROMPT = """Eres un Psicobot (Bot Psicólogo) empático y de apoyo.
-Tu objetivo es escuchar, validar los sentimientos del usuario, y ofrecer apoyo emocional y técnicas sencillas
-para manejar el estrés o la ansiedad.
-- Sé calmado, reflexivo y profesional.
-- No diagnostiques ni proporciones asesoramiento médico; siempre enfatiza que no eres un sustituto de un terapeuta humano.
-- Responde de forma concisa (máximo 4 oraciones) para mantener el flujo de la conversación por WhatsApp."""
+SYSTEM_PROMPT = """Eres un bot de prueba de WhatsApp llamado Psicobot. Debes responder con el texto: 'Mensaje recibido correctamente. Confirmo que estoy activo.'"""
 
 # El archivo donde se guarda el historial (Railway debe tener un 'chat_history.json' inicializado con {})
 HISTORY_FILE = 'chat_history.json'
@@ -163,4 +158,5 @@ if __name__ == "__main__":
     # El puerto 8080 es el estándar para Google Cloud Run y un puerto seguro para Railway.
     print("SERVIDOR DE PSICOBOT INICIADO (Modo Local de Prueba)")
     app.run(host='0.0.0.0', port=8080)
+
 
